@@ -7,6 +7,17 @@ import { Link } from 'react-router-dom';
 const Register = () => {
     const [error, setError] = useState('error is there ');
 
+    const handelRegister = (event) => {
+        event.preventDefault();
+        const form = event.target;
+        const name = form.name.value;
+        const photo = form.photo.value;
+        const email = form.email.value;
+        const password = form.password.value;
+        console.log(name, photo, email, password)
+        setError('')
+    }
+
     const keyframes = `
         @keyframes animateBg {
             100% {
@@ -24,7 +35,7 @@ const Register = () => {
                     <h1 className='text-5xl font-semibold text-center text-white mb-6'>Register now!</h1>
                     {/* login form  */}
 
-                    <form className='flex flex-col gap-4'>
+                    <form onSubmit={handelRegister} className='flex flex-col gap-4'>
 
                         {/* email input field */}
 
