@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Avatar, Dropdown, Navbar } from 'flowbite-react';
 import logo from '../../../assets/images/icon/icon1.png'
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import useAuth from '../../../Hook/useAuth';
 import Swal from 'sweetalert2';
 import { Spinner } from 'flowbite-react';
@@ -9,6 +9,13 @@ import { Spinner } from 'flowbite-react';
 const NavigationBar = () => {
     const { user, logOut, loading } = useAuth();
     // console.log(user)
+    // Active route 
+    const location = useLocation();
+    const [activeLink, setActiveLink] = useState('/');
+    useEffect(() => {
+        setActiveLink(location.pathname);
+    }, [location.pathname]);
+
     if (loading) {
         return <div className='flex justify-center items-center w-full h-screen'>
             <Spinner aria-label="Extra large spinner example" size="xl" />
@@ -56,10 +63,8 @@ const NavigationBar = () => {
                     <Navbar.Toggle />
                 </div>
                 <Navbar.Collapse>
-                    <Navbar.Link href="/" active>
-                        Home
-                    </Navbar.Link>
-                    <Navbar.Link href="#">About</Navbar.Link>
+                    <Navbar.Link href="/" active={activeLink === '/'}> Home </Navbar.Link>
+                    <Navbar.Link href="/available" active={activeLink === '/available'}>Available Food</Navbar.Link>
                     <Navbar.Link href="#">Services</Navbar.Link>
                     <Navbar.Link href="#">Pricing</Navbar.Link>
                     <Navbar.Link href="#">Contact</Navbar.Link>

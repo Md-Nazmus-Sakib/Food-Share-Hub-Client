@@ -34,7 +34,7 @@ const Banner = () => {
                     <p>Food Waste is a big problem and we can be a solution. Too good to go in this site that lets you rescue unsold food at your favorite spots from an ultimately fate.</p>
 
                 </div>
-                <div className="absolute bottom-8 animate-bounce w-12 h-12 ...">
+                <div className="absolute bottom-8 animate-bounce w-12 h-12">
                     <img src={down_arrow} alt="" />
                 </div>
 
