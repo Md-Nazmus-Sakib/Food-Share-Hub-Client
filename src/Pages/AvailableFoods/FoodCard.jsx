@@ -1,10 +1,9 @@
-import React from 'react';
 import { Avatar, Button, Card } from 'flowbite-react';
+import React from 'react';
 import { Link } from 'react-router-dom';
-const FeaturedFoodsCard = ({ food, handelFoodDetails }) => {
+
+const FoodCard = ({ food }) => {
     const { _id, Food_Image, Donator_Image, Donator_Name, Expired_Date, Expired_Time, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes } = food;
-
-
     return (
         <div className='min-h-[500px]'>
             <Card
@@ -26,7 +25,7 @@ const FeaturedFoodsCard = ({ food, handelFoodDetails }) => {
                     <Link className='flex-1 mr-4' to={`/food/${_id}`}> <Button className='w-full' gradientDuoTone="purpleToBlue">Details</Button></Link>
                     <div>
                         <h1 className='text-bold border-b-2'>Donator Info</h1>
-                        <div className="flex flex-wrap gap-2">
+                        <div className="flex flex-row gap-2">
                             <Avatar img={Donator_Image} rounded />
                             <p>{Donator_Name}</p>
                         </div>
@@ -37,4 +36,4 @@ const FeaturedFoodsCard = ({ food, handelFoodDetails }) => {
     );
 };
 
-export default FeaturedFoodsCard;
+export default FoodCard;

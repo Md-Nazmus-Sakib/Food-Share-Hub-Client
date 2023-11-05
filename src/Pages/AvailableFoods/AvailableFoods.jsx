@@ -2,11 +2,13 @@ import React from 'react';
 
 import AvailableFoodsHeader from './AvailableFoodsHeader';
 import AllFood from './AllFood';
+import { useLoaderData } from 'react-router-dom';
 const AvailableFoods = () => {
+    const allFood = useLoaderData();
     return (
         <div>
             <AvailableFoodsHeader></AvailableFoodsHeader>
-            <AllFood></AllFood>
+            <AllFood allFood={allFood}></AllFood>
         </div>
     );
 };

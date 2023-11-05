@@ -5,6 +5,7 @@ import MainLayout from "../Layout/MainLayout";
 import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import AvailableFoods from "../Pages/AvailableFoods/AvailableFoods";
+import FoodDetails from "../Component/FoodDetails/FoodDetails";
 
 export const router = createBrowserRouter([
     {
@@ -15,12 +16,17 @@ export const router = createBrowserRouter([
             {
                 path: "/",
                 element: <Home></Home>,
-                loader: () => fetch('http://localhost:5000/food')
+                loader: () => fetch('http://localhost:5000/feature-food')
             },
             {
                 path: "/available",
                 element: <AvailableFoods></AvailableFoods>,
                 loader: () => fetch('http://localhost:5000/food')
+            },
+            {
+                path: "/food/:id",
+                element: <FoodDetails></FoodDetails>,
+                loader: ({ params }) => fetch(`http://localhost:5000/food/${params.id}`)
             },
             {
                 path: "/login",
