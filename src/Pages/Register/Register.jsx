@@ -1,6 +1,6 @@
 import { Button, Label, TextInput } from 'flowbite-react';
 import React, { useState } from 'react';
-import { FaExclamationTriangle } from 'react-icons/fa';
+import { FaExclamationTriangle, FaGoogle } from 'react-icons/fa';
 import imgBg from '../../assets/images/Login/register1.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hook/useAuth';
@@ -113,9 +113,9 @@ const Register = () => {
 
                         {/* error show */}
 
-                        <div>
+                        <div >
                             {
-                                error && <h1 className='text-red-600 font-extrabold'> <FaExclamationTriangle></FaExclamationTriangle> {error}</h1>
+                                error && <span className='text-red-600 font-extrabold flex flex-row items-center bg-white w-full rounded-xl pe-4 py-2 '><FaExclamationTriangle className='mx-4 text-xl' /> {error}  </span>
                             }
                         </div>
                         <Button className='bg-green-500' type="submit">Register</Button>

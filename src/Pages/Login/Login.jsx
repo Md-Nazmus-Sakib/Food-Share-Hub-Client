@@ -110,12 +110,12 @@ const Login = () => {
 
                     {/* error show */}
 
-                    <div>
+                    <div className='w-full rounded-xl pe-4 py-2 '>
                         {
-                            error && <h1 className='text-red-600 font-extrabold'> <FaExclamationTriangle></FaExclamationTriangle> {error}</h1>
+                            error && <span className='text-red-600 font-extrabold flex flex-row items-center'><FaExclamationTriangle className='mx-4 text-xl' /> {error}  </span>
                         }
                     </div>
-                    <Button className='bg-green-500' type="submit">Submit</Button>
+                    <Button className='bg-green-500' type="submit">Login</Button>
                 </form>
                 <h1 className='text-white my-4'>Don't Have Account Please <Link to={'/register'}><span className='font-extrabold text-xl mx-4'>Register</span></Link></h1>
                 <Dropdown.Divider />
