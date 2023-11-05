@@ -2,18 +2,58 @@ import React, { useState } from 'react';
 import { Button, Dropdown, Label, TextInput } from 'flowbite-react';
 import bgImg from '../../assets/images/Login/login1.png'
 import truck from '../../assets/images/Login/truck.png'
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaExclamationTriangle, FaGoogle } from 'react-icons/fa';
+import Swal from 'sweetalert2';
+import useAuth from '../../Hook/useAuth';
 const Login = () => {
-    const [error, setError] = useState('error is there ');
+    const { signIn, setLoading, googleSignIn } = useAuth();
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+    const location = useLocation();
+
+
+    const from = location.state?.form?.pathname || '/';
     const handelSignIn = (event) => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(email, password)
-    }
+        // console.log(email, password)
+        setError('')
 
+
+        signIn(email, password)
+            .then(result => {
+                const displayUser = result.user;
+                console.log(displayUser)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Login Successful',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+                navigate(from, { replace: true })
+            })
+            .catch(error => {
+                console.log(error)
+                setLoading(false)
+                setError(error.message)
+            })
+    }
+    const handelGoogleLogIn = () => {
+        googleSignIn()
+            .then(result => {
+                const loggedUser = result.user;
+                // console.log(loggedUser)
+                navigate(from, { replace: true })
+            })
+            .catch(error => {
+                setLoading(false)
+                setError(error.message)
+            })
+    }
     const keyframes = `
     @keyframes animate {
         0% {
@@ -82,7 +122,7 @@ const Login = () => {
 
                 {/* continue with google  */}
 
-                <Button className='bg-green-500 w-full my-4' type="submit"><FaGoogle className='mx-4'></FaGoogle>Continue With Google</Button>
+                <Button onClick={handelGoogleLogIn} className='bg-green-500 w-full my-4' type="submit"><FaGoogle className='mx-4'></FaGoogle>Continue With Google</Button>
             </div>
         </div>
     );

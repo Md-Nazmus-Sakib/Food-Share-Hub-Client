@@ -2,10 +2,14 @@ import { Button, Label, TextInput } from 'flowbite-react';
 import React, { useState } from 'react';
 import { FaExclamationTriangle } from 'react-icons/fa';
 import imgBg from '../../assets/images/Login/register1.jpg'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import useAuth from '../../Hook/useAuth';
+import Swal from 'sweetalert2';
 
 const Register = () => {
-    const [error, setError] = useState('error is there ');
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
+    const { createUser, updateUserProfile, setLoading } = useAuth();
 
     const handelRegister = (event) => {
         event.preventDefault();
@@ -16,6 +20,42 @@ const Register = () => {
         const password = form.password.value;
         console.log(name, photo, email, password)
         setError('')
+        if (password.length < 6) {
+            return setError('password must be gater than 6 character or longer.')
+        }
+        else if (!/^(?=.*[A-Z]).*$/.test(password)) {
+            return setError('password must be one upper case')
+        }
+        else if (! /^(?=.*[~`!@#$%^&*()--+={}\[\]|\\:;"'<>,.?/_₹]).*$/.test(password)) {
+            return setError('password must be one special Character')
+        }
+        createUser(email, password)
+            .then(result => {
+                const loggedUser = result.user;
+                console.log(loggedUser)
+                updateUserProfile(name, photo)
+                    .then(() => {
+                        form.reset();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'User Register Successfully',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                        setLoading(false)
+                        navigate('/')
+
+                    })
+                    .catch(error => {
+
+                        setError(error.message)
+                    })
+            })
+            .catch(error => {
+
+                setError(error.message)
+            })
     }
 
     const keyframes = `
