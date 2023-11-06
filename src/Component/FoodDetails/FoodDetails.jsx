@@ -1,12 +1,15 @@
 import { Button } from 'flowbite-react';
-import React from 'react';
+import React, { useState } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 import { useLoaderData } from 'react-router-dom';
+import OpenModal from '../OpenModal/OpenModal';
 
 const FoodDetails = () => {
     const food = useLoaderData();
     // console.log(food)
     const { _id, Food_Image, Donator_Image, Donator_Name, Expired_Date, Expired_Time, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes } = food;
+    const [openModal, setOpenModal] = useState(false);
+
     return (
         <div className='bg-[#D8E7CF] w-full min-h-screen'>
             <div className='flex flex-col md:flex-row gap-4'>
@@ -37,10 +40,11 @@ const FoodDetails = () => {
                         <h1 className='text-xl font-bold'>Note </h1>
                         <p>{Additional_Notes}</p>
                     </div>
-                    <Button className='w-full my-8' gradientDuoTone="purpleToBlue">Proceed</Button>
+                    <Button onClick={() => setOpenModal(true)} className='w-full my-8' gradientDuoTone="purpleToBlue">Proceed</Button>
 
                 </div>
             </div>
+            <OpenModal setOpenModal={setOpenModal} openModal={openModal} food={food} ></OpenModal>
         </div>
     );
 };

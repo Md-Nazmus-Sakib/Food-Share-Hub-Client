@@ -97,18 +97,18 @@ const Register = () => {
 
                         <div>
                             <div className="mb-2 block ">
-                                <Label className='text-white' htmlFor="email1" value="Your email" />
+                                <Label className='text-white' htmlFor="email2" value="Your email" />
                             </div>
-                            <TextInput id="email1" type="email" name='email' placeholder="name@name.com" required />
+                            <TextInput id="email2" type="email" name='email' placeholder="name@name.com" required />
                         </div>
 
                         {/* password field  */}
 
                         <div>
                             <div className="mb-2 block">
-                                <Label className='text-white' htmlFor="password1" value="Your password" />
+                                <Label className='text-white' htmlFor="password2" value="Your password" />
                             </div>
-                            <TextInput id="password1" name='password' type="password" required />
+                            <TextInput id="password2" name='password' type="password" required />
                         </div>
 
                         {/* error show */}
