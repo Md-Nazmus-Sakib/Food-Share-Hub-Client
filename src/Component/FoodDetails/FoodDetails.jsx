@@ -14,7 +14,7 @@ const FoodDetails = () => {
         <div className='bg-[#D8E7CF] w-full min-h-screen'>
             <div className='flex flex-col md:flex-row gap-4'>
                 <img className='flex-1 md:w-1/3 object-cover pr-10' src={Food_Image} alt="" />
-                <div className='border flex-1 w-full pr-5 py-12'>
+                <div className='flex-1 w-full pr-5 py-12'>
                     <h1 className='text-5xl border-b-4 border-black pb-4 font-bold text-center'>{Food_Name}</h1>
                     <div className='flex justify-between w-full px-5 border-b-2 border-dashed border-black py-5'>
                         <h1 className='text-xl font-bold'>Donar Name </h1>

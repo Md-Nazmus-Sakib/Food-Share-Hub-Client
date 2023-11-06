@@ -3,6 +3,8 @@ import { Button, Modal, Textarea } from 'flowbite-react';
 import { Label, TextInput } from 'flowbite-react';
 import useAuth from '../../Hook/useAuth';
 import moment from 'moment/moment';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 const OpenModal = ({ openModal, setOpenModal, food }) => {
     const { user } = useAuth();
 
@@ -10,11 +12,24 @@ const OpenModal = ({ openModal, setOpenModal, food }) => {
     const handelSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
-        const money = form.money.value;
+        const money = parseInt(form.money.value);
         const addNote = form.addNote.value;
         const currentDate = form.currentDate.value;
         const bookedFood = { food_id: _id, Food_Image, Donator_Image, Donator_Name, Donator_Email, Expired_Date, currentDate, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes, money, addNote }
         console.log(bookedFood)
+        axios.post('http://localhost:5000/bookings-food', bookedFood)
+            .then(res => {
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Booked Food Successfully ! Wait for Confirm message.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    setOpenModal(false)
+                }
+            })
     }
     return (
         <Modal dismissible show={openModal} onClose={() => setOpenModal(false)}>
