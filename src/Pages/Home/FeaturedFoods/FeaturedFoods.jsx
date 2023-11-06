@@ -20,7 +20,7 @@ const FeaturedFoods = ({ featuredFoods }) => {
             </div>
             <div className='flex justify-center my-12'>
                 <div className='flex flex-col items-center'>
-                    <Link to={'/available'}> <Button className='w-48 sm:w-96 mb-12' gradientDuoTone="purpleToBlue">Show All</Button></Link>
+                    <Link to={'/available'}> <Button className='w-48 sm:w-96 mb-12 uppercase font-bold text-xl' gradientDuoTone="purpleToBlue">Show All</Button></Link>
 
                     <img className="animate-bounce w-12 h-12 " src={hand_icon} alt="" />
                 </div>
