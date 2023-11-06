@@ -2,6 +2,8 @@ import { Button, Label, TextInput, Textarea } from 'flowbite-react';
 import React from 'react';
 import imgBg from '../../assets/images/Other/Home_Header_Truck-1024x646.png'
 import useAuth from '../../Hook/useAuth';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AddFood = () => {
     const { user } = useAuth();
@@ -18,7 +20,21 @@ const AddFood = () => {
         const addFood = {
             Food_Name, Food_Image, Food_Quantity, Pickup_Location, Expired_Date, Additional_Notes, Food_Status: 'available', Donator_Name: user?.displayName, Donator_Email: user?.email, Donator_Image: user?.photoURL
         }
-        console.log(addFood)
+        // console.log(addFood)
+        axios.post('http://localhost:5000/food', addFood)
+            .then(res => {
+                console.log(res.data)
+                if (res.data.insertedId) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Food Added Successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+                    form.reset()
+                }
+            })
 
     }
 
