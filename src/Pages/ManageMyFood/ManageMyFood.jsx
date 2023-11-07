@@ -9,32 +9,34 @@ import EditMyFood from '../../Component/EditMyFood/EditMyFood';
 import { useState } from 'react';
 import FoodStatus from './FoodStatus/FoodStatus';
 import { FaBootstrap } from 'react-icons/fa';
+import { Spinner } from 'flowbite-react';
+import useAxiosSecure from '../../Hook/useAxiosSecure';
 
 
 const ManageMyFood = () => {
     const { user } = useAuth();
     const [openModal, setOpenModal] = useState(false);
     const [foodStatusModal, setFoodStatusModal] = useState(false);
+
     const [bookedItems, setBookedItems] = useState([]);
     const [editFood, setEditFood] = useState({});
-    const url = user ? `http://localhost:5000/food?email=${user.email}` : null;
+    const axiosSecure = useAxiosSecure();
+    const url = user ? `/food?email=${user.email}` : null;
     // console.log(url)
     const { data: myFood = [], isLoading, refetch } = useQuery({
         queryKey: ['myFood'],
         queryFn: async () => {
-            const res = await axios.get(url);
+            const res = await axiosSecure.get(url);
 
             return res.data;
         }
     });
 
-    // if (isLoading) {
-    //     return <div>Loading...</div>;
-    // }
+
     const { data: bookings = [], isLoading: loader } = useQuery({
         queryKey: ['booking'],
         queryFn: async () => {
-            const res = await axios.get(`http://localhost:5000/booking-food/${user?.email}`);
+            const res = await axiosSecure.get(`/booking-food/${user?.email}`);
 
             return res.data;
         }
@@ -42,7 +44,9 @@ const ManageMyFood = () => {
 
     // console.log(bookings)
     if (isLoading || loader) {
-        return <div>Loading...</div>;
+        return <div className='flex justify-center items-center w-full h-screen'>
+            <Spinner aria-label="Extra large spinner example" size="xl" />
+        </div>;
     }
 
 
@@ -58,7 +62,7 @@ const ManageMyFood = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/delete/${id}`)
+                axiosSecure.delete(`/delete/${id}`)
                     .then(res => {
                         console.log(res.data)
                         if (res.data.result.deletedCount > 0 || res.data.success.deletedCount > 0) {
@@ -69,6 +73,7 @@ const ManageMyFood = () => {
                                 'success'
                             )
                         }
+                        setFoodStatusModal(false)
                     })
             }
         })
@@ -91,7 +96,7 @@ const ManageMyFood = () => {
         const editableFoodDetails = { Food_Name, Food_Image, Food_Quantity, Pickup_Location, Expired_Date, Additional_Notes }
 
 
-        axios.put(`http://localhost:5000/food/${id}`, editableFoodDetails)
+        axiosSecure.put(`/food/${id}`, editableFoodDetails)
             .then(res => {
                 if (res.data.modifiedCount > 0) {
                     refetch();
@@ -107,15 +112,29 @@ const ManageMyFood = () => {
             })
     }
     const handelFoodStatus = (id) => {
+        // console.log(id)
         const bookedItem = bookings.filter(booking => booking.food_id === id)
         setBookedItems(bookedItem)
+
         setFoodStatusModal(true)
     }
     const handelApproveStatus = (id) => {
-        console.log(id)
-        axios.patch(`http://localhost:5000/status/${id}`)
+        // console.log(id)
+        axiosSecure.patch(`/status/${id}`)
             .then(res => {
                 console.log(res.data)
+                if (res.data.bookResult.modifiedCount > 0 || res.data.result.modifiedCount > 0) {
+                    setFoodStatusModal(false)
+                    refetch()
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'Food Approve Successfully.',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
+
+                }
             })
     }
     return (
@@ -141,6 +160,7 @@ const ManageMyFood = () => {
                     setFoodStatusModal={setFoodStatusModal}
                     bookedItems={bookedItems}
                     handelApproveStatus={handelApproveStatus}
+
                 ></FoodStatus>
             </div>
         </div>

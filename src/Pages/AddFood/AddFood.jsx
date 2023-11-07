@@ -4,8 +4,10 @@ import imgBg from '../../assets/images/Other/Home_Header_Truck-1024x646.png'
 import useAuth from '../../Hook/useAuth';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Hook/useAxiosSecure';
 
 const AddFood = () => {
+    const axiosSecure = useAxiosSecure();
     const { user } = useAuth();
     const handelAddFood = (e) => {
         e.preventDefault();
@@ -21,7 +23,7 @@ const AddFood = () => {
             Food_Name, Food_Image, Food_Quantity, Pickup_Location, Expired_Date, Additional_Notes, Food_Status: 'available', Donator_Name: user?.displayName, Donator_Email: user?.email, Donator_Image: user?.photoURL
         }
         // console.log(addFood)
-        axios.post('http://localhost:5000/food', addFood)
+        axiosSecure.post('/food', addFood)
             .then(res => {
                 console.log(res.data)
                 if (res.data.insertedId) {

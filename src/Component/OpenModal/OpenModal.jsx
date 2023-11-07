@@ -5,8 +5,10 @@ import useAuth from '../../Hook/useAuth';
 import moment from 'moment/moment';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../Hook/useAxiosSecure';
 const OpenModal = ({ openModal, setOpenModal, food }) => {
     const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
 
     const { _id, Food_Image, Donator_Image, Donator_Name, Donator_Email, Expired_Date, Expired_Time, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes, Food_Status } = food;
     const handelSubmit = (e) => {
@@ -17,7 +19,7 @@ const OpenModal = ({ openModal, setOpenModal, food }) => {
         const currentDate = form.currentDate.value;
         const bookedFood = { food_id: _id, Food_Image, Donator_Image, Donator_Name, Donator_Email, Expired_Date, currentDate, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes, money, addNote, Requester_Name: user?.displayName, Requester_Img: user?.photoURL, Requester_Email: user?.email, Food_Status }
         // console.log(bookedFood)
-        axios.post('http://localhost:5000/bookings-food', bookedFood)
+        axiosSecure.post('/bookings-food', bookedFood)
             .then(res => {
                 if (res.data.insertedId) {
                     Swal.fire({

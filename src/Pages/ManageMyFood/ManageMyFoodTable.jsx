@@ -38,18 +38,23 @@ const ManageMyFoodTable = ({ myFood, handelDelete, handelEditMyFood, handelFoodS
             header: 'Additional Notes',
         },
         {
-            accessorKey: '',
-            cell: ({ cell }) => (
-                <button className='text-blue-500' onClick={() => handelFoodStatus(cell.row.original._id)}>Status</button>
-            ),
+            accessorKey: 'Food_Status',
+            cell: ({ cell }) => {
+                const status = cell.row.original.Food_Status === "Not_Available";
+                return status ? (<button className='text-orange-500' disabled>Approved</button>) :
+                    (<button className='text-blue-500' onClick={() => handelFoodStatus(cell.row.original._id)}>Status</button>)
+            },
             header: 'Manage',
 
         },
         {
             accessorKey: '',
-            cell: ({ cell }) => (
-                <button className='text-green-500' onClick={() => handelEditMyFood(cell.row.original)}>Edit</button>
-            ),
+            cell: ({ cell }) => {
+                const status = cell.row.original.Food_Status === "Not_Available";
+                return status ? (<button className='text-green-500' disabled>Edit</button>) : (<button className='text-green-500' onClick={() => handelEditMyFood(cell.row.original)}>Edit</button>)
+            },
+
+
             header: 'Edit',
 
         },
@@ -74,7 +79,7 @@ const ManageMyFoodTable = ({ myFood, handelDelete, handelEditMyFood, handelFoodS
     return (
         <div>
             {
-                data.length > 0 ?
+                data?.length > 0 ?
                     <>
                         <h2 className='text-5xl text-center my-12'>Manage my food</h2>
 
@@ -119,7 +124,7 @@ const ManageMyFoodTable = ({ myFood, handelDelete, handelEditMyFood, handelFoodS
                         </div>
                     </>
                     : <div className='flex justify-center items-center h-[300px]'>
-                        <p className='text-3xl font-bold'> No Food Added. Please Add Some Food?</p>
+                        <p className='text-3xl font-bold'> "No food items have been added yet. Please consider adding some food items."</p>
                     </div>
 
             }

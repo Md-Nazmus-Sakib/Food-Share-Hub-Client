@@ -68,6 +68,7 @@ const NavigationBar = () => {
                     <Navbar.Link href="/addFood" active={activeLink === '/addFood'}>Add Food</Navbar.Link>
 
                     <Navbar.Link href="/manageMyFood" active={activeLink === '/manageMyFood'}>Manage My Food</Navbar.Link>
+                    <Navbar.Link href="/myRequest" active={activeLink === '/myRequest'}>My Food Request</Navbar.Link>
 
                 </Navbar.Collapse>
             </Navbar>
