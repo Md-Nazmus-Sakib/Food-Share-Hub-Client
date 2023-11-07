@@ -1,6 +1,6 @@
 import React from 'react';
 import useAuth from '../Hook/useAuth';
-import { useLocation } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { Spinner } from 'flowbite-react';
 
 const PrivateRoute = ({ children }) => {

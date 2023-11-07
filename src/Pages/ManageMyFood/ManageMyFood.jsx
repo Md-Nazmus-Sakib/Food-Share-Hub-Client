@@ -8,12 +8,14 @@ import Swal from 'sweetalert2';
 import EditMyFood from '../../Component/EditMyFood/EditMyFood';
 import { useState } from 'react';
 import FoodStatus from './FoodStatus/FoodStatus';
+import { FaBootstrap } from 'react-icons/fa';
 
 
 const ManageMyFood = () => {
     const { user } = useAuth();
     const [openModal, setOpenModal] = useState(false);
     const [foodStatusModal, setFoodStatusModal] = useState(false);
+    const [bookedItems, setBookedItems] = useState([]);
     const [editFood, setEditFood] = useState({});
     const url = user ? `http://localhost:5000/food?email=${user.email}` : null;
     // console.log(url)
@@ -26,9 +28,24 @@ const ManageMyFood = () => {
         }
     });
 
-    if (isLoading) {
+    // if (isLoading) {
+    //     return <div>Loading...</div>;
+    // }
+    const { data: bookings = [], isLoading: loader } = useQuery({
+        queryKey: ['booking'],
+        queryFn: async () => {
+            const res = await axios.get(`http://localhost:5000/booking-food/${user?.email}`);
+
+            return res.data;
+        }
+    });
+
+    // console.log(bookings)
+    if (isLoading || loader) {
         return <div>Loading...</div>;
     }
+
+
     const handelDelete = (id) => {
         console.log(id)
         Swal.fire({
@@ -41,10 +58,10 @@ const ManageMyFood = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result.isConfirmed) {
-                axios.delete(`http://localhost:5000/food/${id}`)
+                axios.delete(`http://localhost:5000/delete/${id}`)
                     .then(res => {
                         console.log(res.data)
-                        if (res.data.deletedCount > 0) {
+                        if (res.data.result.deletedCount > 0 || res.data.success.deletedCount > 0) {
                             refetch();
                             Swal.fire(
                                 'Deleted!',
@@ -90,7 +107,16 @@ const ManageMyFood = () => {
             })
     }
     const handelFoodStatus = (id) => {
+        const bookedItem = bookings.filter(booking => booking.food_id === id)
+        setBookedItems(bookedItem)
         setFoodStatusModal(true)
+    }
+    const handelApproveStatus = (id) => {
+        console.log(id)
+        axios.patch(`http://localhost:5000/status/${id}`)
+            .then(res => {
+                console.log(res.data)
+            })
     }
     return (
         <div className='min-h-[500px]'>
@@ -113,6 +139,8 @@ const ManageMyFood = () => {
                 <FoodStatus
                     foodStatusModal={foodStatusModal}
                     setFoodStatusModal={setFoodStatusModal}
+                    bookedItems={bookedItems}
+                    handelApproveStatus={handelApproveStatus}
                 ></FoodStatus>
             </div>
         </div>

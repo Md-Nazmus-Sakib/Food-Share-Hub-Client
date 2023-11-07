@@ -8,15 +8,15 @@ import Swal from 'sweetalert2';
 const OpenModal = ({ openModal, setOpenModal, food }) => {
     const { user } = useAuth();
 
-    const { _id, Food_Image, Donator_Image, Donator_Name, Donator_Email, Expired_Date, Expired_Time, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes } = food;
+    const { _id, Food_Image, Donator_Image, Donator_Name, Donator_Email, Expired_Date, Expired_Time, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes, Food_Status } = food;
     const handelSubmit = (e) => {
         e.preventDefault();
         const form = e.target;
         const money = parseInt(form.money.value);
         const addNote = form.addNote.value;
         const currentDate = form.currentDate.value;
-        const bookedFood = { food_id: _id, Food_Image, Donator_Image, Donator_Name, Donator_Email, Expired_Date, currentDate, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes, money, addNote }
-        console.log(bookedFood)
+        const bookedFood = { food_id: _id, Food_Image, Donator_Image, Donator_Name, Donator_Email, Expired_Date, currentDate, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes, money, addNote, Requester_Name: user?.displayName, Requester_Img: user?.photoURL, Requester_Email: user?.email, Food_Status }
+        // console.log(bookedFood)
         axios.post('http://localhost:5000/bookings-food', bookedFood)
             .then(res => {
                 if (res.data.insertedId) {
