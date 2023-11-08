@@ -6,6 +6,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaExclamationTriangle, FaGoogle } from 'react-icons/fa';
 import Swal from 'sweetalert2';
 import useAuth from '../../Hook/useAuth';
+import { Helmet } from 'react-helmet';
 const Login = () => {
     const { signIn, setLoading, googleSignIn } = useAuth();
     const [error, setError] = useState('');
@@ -79,7 +80,11 @@ const Login = () => {
 
         <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),url(${bgImg})`, backgroundSize: "cover" }} className='relative flex justify-center items-center w-full min-h-[800px]  overflow-hidden z-10'>
 
-            {/* truck image   */}
+            <div>
+                <Helmet>
+                    <title>Food Share Hub | Login</title>
+                </Helmet>
+            </div>
 
             <style>{keyframes}</style>
             <img style={{ animation: 'animate 10s linear infinite' }} className='absolute mb-28' src={truck} alt="" />

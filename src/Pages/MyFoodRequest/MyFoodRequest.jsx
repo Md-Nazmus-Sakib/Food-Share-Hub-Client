@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import MyRequest from './MyRequest';
 import Swal from 'sweetalert2';
 import { Spinner } from 'flowbite-react';
+import { Helmet } from 'react-helmet';
 
 const MyFoodRequest = () => {
     const axiosSecure = useAxiosSecure();
@@ -55,6 +56,11 @@ const MyFoodRequest = () => {
 
     return (
         <div className='min-h-[500px]'>
+            <div>
+                <Helmet>
+                    <title>Food Share Hub | My Food</title>
+                </Helmet>
+            </div>
             {
                 myBookings.length > 0 ?
                     <div>

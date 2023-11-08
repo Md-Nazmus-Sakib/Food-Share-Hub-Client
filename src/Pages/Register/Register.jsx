@@ -5,6 +5,7 @@ import imgBg from '../../assets/images/Login/register1.jpg'
 import { Link, useNavigate } from 'react-router-dom';
 import useAuth from '../../Hook/useAuth';
 import Swal from 'sweetalert2';
+import { Helmet } from 'react-helmet';
 
 const Register = () => {
     const [error, setError] = useState('');
@@ -69,6 +70,11 @@ const Register = () => {
     `;
     return (
         <div>
+            <div>
+                <Helmet>
+                    <title>Food Share Hub | Register</title>
+                </Helmet>
+            </div>
             <style>{keyframes}</style>
             <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),url(${imgBg})`, backgroundSize: "cover", animation: 'animateBg 10s linear infinite' }} className='relative flex justify-center items-center w-full min-h-[800px]  overflow-hidden z-10'>
 

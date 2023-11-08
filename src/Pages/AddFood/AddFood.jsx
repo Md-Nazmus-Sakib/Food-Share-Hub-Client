@@ -6,6 +6,7 @@ import axios from 'axios';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../Hook/useAxiosSecure';
 import moment from 'moment';
+import { Helmet } from 'react-helmet';
 
 const AddFood = () => {
     const axiosSecure = useAxiosSecure();
@@ -45,6 +46,11 @@ const AddFood = () => {
     return (
         <div style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),url(${imgBg})`, backgroundSize: "cover", animation: 'animateBg 10s linear infinite' }} className='py-12 min-h-screen flex justify-center items-center'>
             <form onSubmit={handelAddFood} className='border w-full sm:w-2/3 p-2 sm:p-10 h-full bg-[#D8E7CF] bg-opacity-40 rounded-xl'>
+                <div>
+                    <Helmet>
+                        <title>Food Share Hub | Add Food</title>
+                    </Helmet>
+                </div>
 
                 <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
                     <div className="max-w-md">

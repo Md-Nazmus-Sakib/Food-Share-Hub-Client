@@ -11,6 +11,7 @@ import FoodStatus from './FoodStatus/FoodStatus';
 import { FaBootstrap } from 'react-icons/fa';
 import { Spinner } from 'flowbite-react';
 import useAxiosSecure from '../../Hook/useAxiosSecure';
+import { Helmet } from 'react-helmet';
 
 
 const ManageMyFood = () => {
@@ -139,6 +140,11 @@ const ManageMyFood = () => {
     }
     return (
         <div className='min-h-[500px]'>
+            <div>
+                <Helmet>
+                    <title>Food Share Hub | Manage Food</title>
+                </Helmet>
+            </div>
             <ManageMyFoodTable
                 myFood={myFood}
                 handelDelete={handelDelete}
