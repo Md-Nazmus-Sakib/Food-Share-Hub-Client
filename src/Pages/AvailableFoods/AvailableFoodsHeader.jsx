@@ -1,8 +1,9 @@
-import React from 'react';
+
 import bgImg from '../../assets/images/Login/register1.jpg'
 import { FaSearch } from 'react-icons/fa';
 
-const AvailableFoodsHeader = () => {
+const AvailableFoodsHeader = ({ handelSearch, searchInputRef }) => {
+
     return (
         <div className='w-full h-[600px] flex justify-center items-center p-2' style={{ backgroundImage: `linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.4)),url(${bgImg})`, backgroundSize: "cover" }} >
             <div className='relative md:w-1/2 lg:w-1/3'>
@@ -12,8 +13,8 @@ const AvailableFoodsHeader = () => {
 
                 </div>
                 <div className="absolute bottom-0 w-full ">
-                    <input className='w-full rounded-xl relative pr-10' type="text" placeholder="Search" />
-                    <button className='text-green-500 absolute top-1/3 overflow-hidden right-5'><FaSearch></FaSearch></button>
+                    <input className='w-full rounded-xl  relative pr-10' name='search' type="text" placeholder="Search" ref={searchInputRef} />
+                    <button onClick={handelSearch} className='text-green-500 absolute top-1/3 overflow-hidden right-5'><FaSearch></FaSearch></button>
 
 
                 </div>

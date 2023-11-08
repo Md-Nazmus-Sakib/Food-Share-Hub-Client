@@ -1,13 +1,38 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import AvailableFoodsHeader from './AvailableFoodsHeader';
 import AllFood from './AllFood';
-import { useLoaderData } from 'react-router-dom';
+import axios from 'axios';
 const AvailableFoods = () => {
-    const allFood = useLoaderData();
+    // const allFood = useLoaderData();
+    const searchInputRef = useRef(null);
+    const [allFood, setAllFood] = useState([]);
+    const handelSearch = (e) => {
+        e.preventDefault();
+        const searchTerm = (searchInputRef.current.value).toLowerCase();
+        // console.log(searchTerm)
+        axios.get(`http://localhost:5000/food?search=${searchTerm}`)
+            .then(res => {
+                setAllFood(res.data)
+            })
+
+    }
+
+    useEffect(() => {
+        (async () => {
+            try {
+                const response = await axios.get('http://localhost:5000/food');
+                setAllFood(response.data);
+            } catch (error) {
+                console.log(error);
+            }
+        })
+            ();
+    }, [])
+
     return (
         <div>
-            <AvailableFoodsHeader></AvailableFoodsHeader>
+            <AvailableFoodsHeader handelSearch={handelSearch} searchInputRef={searchInputRef} ></AvailableFoodsHeader>
             <AllFood allFood={allFood}></AllFood>
         </div>
     );

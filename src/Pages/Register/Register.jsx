@@ -50,11 +50,13 @@ const Register = () => {
                     .catch(error => {
 
                         setError(error.message)
+                        setLoading(false)
                     })
             })
             .catch(error => {
 
                 setError(error.message)
+                setLoading(false)
             })
     }
 

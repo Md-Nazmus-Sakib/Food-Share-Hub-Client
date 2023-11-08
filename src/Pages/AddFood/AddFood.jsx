@@ -5,6 +5,7 @@ import useAuth from '../../Hook/useAuth';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import useAxiosSecure from '../../Hook/useAxiosSecure';
+import moment from 'moment';
 
 const AddFood = () => {
     const axiosSecure = useAxiosSecure();
@@ -16,13 +17,14 @@ const AddFood = () => {
         const Food_Image = form.Food_Image.value;
         const Food_Quantity = parseInt(form.Food_Quantity.value);
         const Pickup_Location = form.Pickup_Location.value;
-        const Expired_Date = form.Expired_Date.value;
+        const ExpDate = form.Expired_Date.value;
+        const Expired_Date = moment(ExpDate).format('DD-MM-YYYY, hh:mm')
         const Additional_Notes = form.Additional_Notes.value;
 
         const addFood = {
             Food_Name, Food_Image, Food_Quantity, Pickup_Location, Expired_Date, Additional_Notes, Food_Status: 'available', Donator_Name: user?.displayName, Donator_Email: user?.email, Donator_Image: user?.photoURL
         }
-        // console.log(addFood)
+        console.log(Expired_Date)
         axiosSecure.post('/food', addFood)
             .then(res => {
                 console.log(res.data)
