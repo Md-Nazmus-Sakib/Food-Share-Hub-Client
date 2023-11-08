@@ -53,6 +53,7 @@ const Login = () => {
             .catch(error => {
                 setLoading(false)
                 setError(error.message)
+                setLoading(false)
             })
     }
     const keyframes = `
