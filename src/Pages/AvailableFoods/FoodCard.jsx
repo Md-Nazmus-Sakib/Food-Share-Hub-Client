@@ -1,9 +1,10 @@
 import { Avatar, Button, Card } from 'flowbite-react';
+import moment from 'moment';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 const FoodCard = ({ food }) => {
-    const { _id, Food_Image, Donator_Image, Donator_Name, Expired_Date, Expired_Time, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes } = food;
+    const { _id, Food_Image, Donator_Image, Donator_Name, Expired_Date, Food_Name, Food_Quantity, Pickup_Location, Additional_Notes } = food;
     return (
         <div className='min-h-[500px]'>
             <Card
@@ -16,8 +17,8 @@ const FoodCard = ({ food }) => {
                         {Food_Name}
                     </h5>
                     <p className="border-b-2 my-2 pb-1"><span className='font-bold'>Quantity:</span> {Food_Quantity} </p>
-                    <p className="border-b-2 my-2 pb-1"><span className='font-bold'>Expire-Date:</span> {Expired_Date} </p>
-                    <p className="border-b-2 my-2 pb-1"><span className='font-bold'>Expire-time:</span> {Expired_Time} </p>
+                    <p className="border-b-2 my-2 pb-1"><span className='font-bold'>Expire-Date:</span> {moment(Expired_Date).format('DD-MM-YYYY, hh:mm')} </p>
+
                     <p className="border-b-2 my-2 pb-1"><span className='font-bold'>Pickup Point:</span> {Pickup_Location} </p>
                     <p className="border-b-2 my-2 pb-1"><span className='font-bold'>Note:</span> {Additional_Notes} </p>
                 </div>

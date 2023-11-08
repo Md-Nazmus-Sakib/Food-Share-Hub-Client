@@ -8,15 +8,17 @@ const FeaturedFoods = ({ featuredFoods }) => {
     // console.log(featuredFoods)
     return (
         <div>
-            <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-12'>
-                {
-                    featuredFoods.map(food => <FeaturedFoodsCard
-                        key={food._id}
-                        food={food}
+            <div className='flex justify-center'>
+                <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 my-12'>
+                    {
+                        featuredFoods.map(food => <FeaturedFoodsCard
+                            key={food._id}
+                            food={food}
 
-                    ></FeaturedFoodsCard>)
-                }
+                        ></FeaturedFoodsCard>)
+                    }
 
+                </div>
             </div>
             <div className='flex justify-center my-12'>
                 <div className='flex flex-col items-center'>
