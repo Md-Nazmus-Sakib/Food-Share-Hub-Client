@@ -12,7 +12,7 @@ const AvailableFoods = () => {
         e.preventDefault();
         const searchTerm = (searchInputRef.current.value).toLowerCase();
         // console.log(searchTerm)
-        axios.get(`https://food-share-hub-server.vercel.app/food?search=${searchTerm}`)
+        axios.get(`http://localhost:5000/food?search=${searchTerm}`)
             .then(res => {
                 setAllFood(res.data)
             })
@@ -22,7 +22,7 @@ const AvailableFoods = () => {
     useEffect(() => {
         (async () => {
             try {
-                const response = await axios.get('https://food-share-hub-server.vercel.app/food');
+                const response = await axios.get('http://localhost:5000/food');
                 setAllFood(response.data);
             } catch (error) {
                 console.log(error);
