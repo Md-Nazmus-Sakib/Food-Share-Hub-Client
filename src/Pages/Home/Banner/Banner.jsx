@@ -37,7 +37,7 @@ const Banner = () => {
 
         <div>
             <style>{keyframes}</style>
-            <div style={{ animation: 'animateBg 10s linear infinite' }} className='py-4 relative min-h-[600px] flex justify-center items-center flex-col md:flex-row bg-[#D8E7CF] text-black  overflow-hidden'>
+            <div style={{ animation: 'animateBg 10s linear infinite' }} className='py-4 rounded-b-xl relative min-h-[600px] flex justify-center items-center flex-col md:flex-row bg-[#D8E7CF] text-black  overflow-hidden'>
                 <div className='w-full md:w-1/2 flex justify-center items-center relative pb-20'>
                     <div className='w-full p-4 text-center mx-auto mb-4'>
                         <h1 className='text-5xl md:text-3xl lg:text-5xl font-extrabold my-4 uppercase'>Let's Fight <span className='text-blue-500'> Food <br /> Waste </span>Together</h1>
